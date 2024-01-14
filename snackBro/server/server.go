@@ -1,10 +1,10 @@
 package main
 
 import (
-	"gql_project/graph"
 	"log"
 	"net/http"
 	"os"
+	graph "resolvers"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
