@@ -1,0 +1,56 @@
+# WRAPPER_PORT
+# SNACK_BRO_PORT
+version: '3'
+
+services:
+  snack-bro:
+    image: golang:latest
+    container_name: snack-bro
+    environment:
+      - GO_ENV=production
+      - SNACK_BRO_PORT=8080
+    volumes:
+      - ./go-app:/app
+    command: go run main.go
+    working_dir: /app
+    ports:
+      - "8080:8080"
+
+  rust-service:
+    image: rust:latest
+    container_name: rust-container
+    environment:
+      - RUST_ENV=production
+      - RUST_PORT=8000
+    volumes:
+      - ./rust-app:/app
+    command: cargo run
+    working_dir: /app
+    ports:
+      - "8000:8000"
+
+  node-service-1:
+    image: node:latest
+    container_name: node-container-1
+    environment:
+      - NODE_ENV=production
+      - WRAPPER_PORT=3000
+    volumes:
+      - ./node-app-1:/app
+    command: npm start
+    working_dir: /app
+    ports:
+      - "3000:3000"
+
+  testing-api-node:
+    image: node:latest
+    container_name: testing-api
+    environment:
+      - NODE_ENV=production
+      - NODE_PORT=3001
+    volumes:
+      - ./node-app-2:/app
+    command: npm start
+    working_dir: /app
+    ports:
+      - "3001:3001"
