@@ -1,9 +1,9 @@
-go 1.21.0
+go 1.21.6
 
 use (
+	./barcode
 	./cli
 	./logger
-	./barcode
 	./mongoer
 	./server
 )

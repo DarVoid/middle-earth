@@ -16,7 +16,7 @@ services:
     ports:
       - "8080:8080"
 
-  rust-service:
+  rust-app:
     image: rust:latest
     container_name: rust-container
     environment:

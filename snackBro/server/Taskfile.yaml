@@ -10,6 +10,12 @@ tasks:
     desc: runs graphQL go server
     cmds: 
       - go run server.go
+      
+  build: 
+    desc: runs graphQL go server
+    cmds: 
+      - GOOS=linux go build server.go
+
   regenerate:
     desc: regenerate resolvers from schema
     cmds:
