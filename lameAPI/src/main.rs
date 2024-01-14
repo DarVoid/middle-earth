@@ -1,39 +1,33 @@
+mod store;
+
 #[macro_use] extern crate rocket;
-	
-use rocket::serde::{Serialize, Deserialize, json::Json};
-use chrono::{DateTime, Utc};
+
+use rocket::serde::json::Json;
+use chrono::Utc;
+use rocket::http::ext::IntoCollection;
 use rocket::State;
+use crate::store::Store;
+use crate::store::ticket::Ticket;
 
-#[derive(Serialize, Deserialize, Clone)]
-#[serde(crate = "rocket::serde")]
-struct Ticket {
-    id: String,
-    date: DateTime<Utc>,
+#[get("/tickets")]
+fn tickets(store: &State<Store>) -> Json<Vec<Ticket>> {
+    let ticket_store = store.tickets.lock().unwrap();
+    Json(ticket_store.to_vec())
 }
 
-struct Store {
-    tickets: Vec<Ticket>,
-}
-
-impl Store {
-    fn new() -> Self {
-        Self {
-            tickets: vec![],
-        }
-    }
-}
-
-#[get("/ticket")]
-fn ticket() -> Json<Ticket> {
-    Json(Ticket {
-        id: "234678972368".into(),
-        date: Utc::now(),
-    })
+#[get("/tickets/<id>")]
+fn ticket(id: &str, store: &State<Store>) -> Json<Ticket> {
+    let ticket_store = store.tickets.lock().unwrap();
+    let tickets: Vec<Ticket> = ticket_store.iter()
+        .filter(|ticket| ticket.id == id)
+        .cloned().collect();
+    Json(tickets.first().unwrap().clone())
 }
 
 #[post("/tickets", data = "<ticket>")]
 fn new(ticket: Json<Ticket>, store: &State<Store>) {
-    &store.tickets.push(ticket.0.clone());
+    let mut ticket_store = store.tickets.lock().unwrap();
+    ticket_store.push(ticket.0)
 }
 
 #[get("/")]
@@ -43,12 +37,12 @@ fn index() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
-    let store = Store::new();
-
     rocket::build()
-        .manage(store)
+        .manage(Store::new())
         .mount("/", routes![
             index,
             ticket,
+            tickets,
+            new,
         ])
 }
