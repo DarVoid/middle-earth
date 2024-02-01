@@ -3,3 +3,12 @@
         <Post v-for="i in 10" :key="i" />
     </div>
 </template>
+<script setup>
+const query = gql`
+  query {
+    fortune
+  }
+`;
+const { data } = await useAsyncQuery(query);
+console.log(data.value.fortune);
+</script>

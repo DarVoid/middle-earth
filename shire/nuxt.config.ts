@@ -1,6 +1,20 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   
-  modules: ['@nuxtjs/tailwindcss'],
+  ssr: false,
+
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/apollo',
+  ],
+
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: 'http://127.0.0.1:8080/query',
+      },
+    },
+  },
 });
