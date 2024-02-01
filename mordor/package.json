@@ -2,10 +2,17 @@
   "name": "mordor",
   "module": "index.js",
   "type": "module",
+  "scripts": {
+    "start": "bun index.js"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "graphql": "^16.8.1"
   }
 }
