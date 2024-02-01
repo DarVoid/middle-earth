@@ -14,10 +14,10 @@ import (
 	graph "gql_project/resolvers"
 )
 
-const defaultPort = "8080"
+const defaultPort = "8000"
 
 func main() {
-	port := os.Getenv("SNACK_BRO_PORT")
+	port := os.Getenv("ISENGARD_PORT")
 	if port == "" {
 		port = defaultPort
 	}
@@ -34,8 +34,8 @@ func main() {
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
-	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	router.Handle("/query", srv)
+	router.Handle("/", playground.Handler("GraphQL playground", "/"))
+	router.Handle("/", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))

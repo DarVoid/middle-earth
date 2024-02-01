@@ -1,33 +1,20 @@
-# WRAPPER_PORT
-# SNACK_BRO_PORT
+# MORDOR_PORT
+# ISENGARD_PORT
 version: '3'
 
 services:
-  snack-bro:
+  isengard:
     image: golang:latest
-    container_name: snack-bro
+    container_name: isengard
     environment:
       - GO_ENV=production
-      - SNACK_BRO_PORT=8080
+      - ISENGARD_PORT=8080
     volumes:
       - ./go-app:/app
     command: go run main.go
     working_dir: /app
     ports:
       - "8080:8080"
-
-  rust-app:
-    image: rust:latest
-    container_name: rust-container
-    environment:
-      - RUST_ENV=production
-      - RUST_PORT=8000
-    volumes:
-      - ./rust-app:/app
-    command: cargo run
-    working_dir: /app
-    ports:
-      - "8000:8000"
 
   node-service-1:
     image: node:latest

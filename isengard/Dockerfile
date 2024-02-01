@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --from=go-builder /app/server .
 
 # Expose the port your application listens on
-ENV SNACK_BRO_PORT = 8080
+ENV ISENGARD_PORT = 8080
 EXPOSE 8080
 
 # Command to run your application

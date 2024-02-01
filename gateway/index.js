@@ -3,7 +3,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 
 const mordor_PORT =  process.env.MORDOR_PORT
-const snack_bro_PORT =  process.env.SNACK_BRO_PORT
+const isengard_PORT =  process.env.ISENGARD_PORT
 
 const server = new ApolloServer({
     gateway: new ApolloGateway({
@@ -11,7 +11,7 @@ const server = new ApolloServer({
         supergraphSdl: new IntrospectAndCompose({
             subgraphs: [
                 { name: 'mordor', url: `http://localhost:${mordor_PORT}/` },
-                { name: 'snackBro', url: `http://localhost:${snack_bro_PORT}/query` },
+                { name: 'isengard', url: `http://localhost:${isengard_PORT}/` },
                 // ...additional subgraphs...
             ],
         }),
@@ -21,4 +21,4 @@ const server = new ApolloServer({
 const { url } = await startStandaloneServer(server, {
     listen: { port: 5000 },
 });
-console.log(`🚀  Server ready at ${url}`);
+console.log(`🚀 Server ready at ${url}`);
