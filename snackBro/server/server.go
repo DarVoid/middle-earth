@@ -4,10 +4,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	graph "resolvers"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+
+	graph "gql_project/resolvers"
 )
 
 const defaultPort = "8080"
