@@ -2,7 +2,7 @@ import { expect, test } from 'bun:test';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
 
 const client = new ApolloClient({
-    uri: 'http://127.0.0.1:5000',
+    uri: 'http://127.0.0.1:5000', // TODO: change to use env variable
     cache: new InMemoryCache(),
     defaultOptions: {
         watchQuery: {
