@@ -1,7 +1,7 @@
 # Roadmap
 
  - [ ] Readmes for each sub-app
- - [ ] Better arch diagram 
+ - [x] Better arch diagram 
  - [ ] Dockerfiles
      - [ ] Bun
      - [ ] Taskfile
