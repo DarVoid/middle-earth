@@ -1,6 +1,0 @@
-query {
-    fortune
-    post {
-        title
-    }
-}
