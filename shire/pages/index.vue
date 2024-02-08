@@ -10,5 +10,5 @@ const query = gql`
   }
 `;
 const { data } = await useAsyncQuery(query);
-console.log(data.value.fortune);
+console.log(data.value);
 </script>
