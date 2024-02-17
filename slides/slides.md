@@ -1,28 +1,22 @@
 ---
-theme: seriph
-background: img/bg.png
-class: text-left
 highlighter: shiki
-lineNumbers: false
-drawings:
-  persist: false
-defaults:
-  foo: true
-transition: slide-left
+lineNumbers: true
 title: GraphQL Ins & Outs
 mdc: true
+transition: fade
+background: img/cover_bg.png
+fonts:
+  sans: 'sans-serif'
 ---
 
-<img src="img/logo.svg" class="w-20 h-20" />
+<div class="flex items-center gap-3">
+  <img src="img/logo.svg" class="w-16 h-16 mb-3" />
+  <h1>GraphQL Ins & Outs</h1>
+</div>
 
-# GraphQL Ins & Outs
-
-A Talk/Workshop by Jorge Duque & Toby Selway
-
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
+<p class="text-left">
+  A Talk/Workshop by Jorge Duque & Toby Selway
+</p>
 
 ---
 
@@ -99,6 +93,7 @@ Let us begin our adventure
   - Error handling left up to implementation
     - Is this a pro or con?
   -->
+
 ---
 
 # Schema
@@ -323,5 +318,3 @@ Where to go next?
 - [Mesh](https://the-guild.dev/graphql/mesh)
 - [Roadmap.sh for GraphQL](https://roadmap.sh/graphql)
 - [GitHub GraphQL API Explorer](https://docs.github.com/en/graphql/overview/explorer)
-
----
