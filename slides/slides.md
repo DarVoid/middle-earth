@@ -142,7 +142,6 @@ Let us begin our adventure
     roles: [Role!]!
   }
   ```
-
   </div>
 
   <div class="flex-1">
@@ -160,7 +159,26 @@ Let us begin our adventure
     DELETE_POSTS
   }
   ```
+  </div>
 
+  <div class="flex-1">
+
+  ```gql
+  type Query {
+    post(id: ID!): Post
+    posts: [Post!]!
+  }
+
+  type Mutation {
+    deletePost(id: ID!)
+    newPost(input: PostInput!): Post
+  }
+
+  input PostInput {
+    body: String!
+    image: String
+  }
+  ```
   </div>
 
 </div>
@@ -185,6 +203,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```gql
+  # Client
   query {
     post(id: "42") {
       id
@@ -194,12 +213,12 @@ Let us begin our adventure
     }
   }
   ```
-
   </div>
 
   <div class="flex-1">
 
   ```json
+  // Response
   {
     "data": {
       "post": {
@@ -211,7 +230,6 @@ Let us begin our adventure
     }
   }
   ```
-
   </div>
 
 </div>
@@ -226,6 +244,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```gql
+  # Client
   query {
     posts {
       id
@@ -239,6 +258,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```json
+  // Response
   {
     "data": {
       "posts": [
@@ -279,6 +299,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```gql
+  # Client
   mutation {
     deletePost(id: "42")
   }
@@ -289,6 +310,8 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```json
+  // Response
+
   // 200 OK
   ```
 
@@ -303,6 +326,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```gql
+  # Client
   mutation {
     newPost(input: {
       body: "They're taking the Hobbits to Isengard"
@@ -318,6 +342,7 @@ Let us begin our adventure
   <div class="flex-1">
 
   ```json
+  // Response
   {
     "data": {
       "post": {
@@ -326,10 +351,125 @@ Let us begin our adventure
     }
   }
   ```
-
   </div>
 
 </div>
+
+---
+
+# Variables
+
+<div class="flex items-center mt-4 gap-4">
+<div class="flex-1">
+
+```gql
+mutation {
+  newPost(input: {
+    body: "They're taking the Hobbits to Isengard"
+    image: "https://i.scdn.co/image/ab67706c0000da84f0ce261134f6e62f71fe03ec"
+  }) {
+    id
+  }
+}
+```
+</div>
+<div class="flex-1">
+
+  ```gql
+  input PostInput {
+    body: String!
+    image: String
+  }
+  ```
+</div>
+</div>
+
+<div class="flex items-center mt-4 gap-4">
+<div class="mt-4">
+
+  ```gql
+  mutation CreateNewPost($postInput: PostInput) {
+    newPost(input: $postInput) {
+      id
+    }
+  }
+  ```
+</div>
+<div class="mt-4">
+
+  ```json
+  // Variables
+  {
+    "postInput": {
+      "body": "They're taking the Hobbits to Isengard",
+      "image": "https://i.scdn.co/image/ab67706c00..."
+    }
+  }
+  ```
+</div>
+</div>
+
+---
+
+# Error Handling
+Left to implementation
+
+<div class="mt-6 flex items-start gap-4">
+
+<div class="flex-1">
+
+  ```gql
+  # Schema
+  type User {
+    name: String!
+    email: String!
+  }
+
+  type ErrorNotFound {
+    id: ID!
+  }
+
+  union UserResult = User | ErrorNotFound
+
+  type Query {
+    user(id: ID!): UserResult
+  }
+  ```
+</div>
+<div class="flex-1">
+
+  ```gql
+  # Client
+  query {
+    user(id: "42") {
+      ... on User {
+        name
+        email
+      }
+      ... on ErrorNotFound {
+        id
+      }
+    }
+  }
+  ```
+</div>
+</div>
+
+<p class="pt-8 text-sm text-gray-600 flex items-center gap-1">
+  There are other ways of handling errors, depending on client implementation
+  <a href="https://www.apollographql.com/docs/apollo-server/data/errors/">
+    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+    </svg>
+  </a>
+</p>
+
+<!--
+  If there's a will there's a way!  
+-->
+---
+
+# Fragments
 
 ---
 
@@ -342,3 +482,5 @@ Where to go next?
 - [Mesh](https://the-guild.dev/graphql/mesh)
 - [Roadmap.sh for GraphQL](https://roadmap.sh/graphql)
 - [GitHub GraphQL API Explorer](https://docs.github.com/en/graphql/overview/explorer)
+- [GraphQL Security Considerations](https://inigo.io/blog/graphql_injection_attacks)
+- [Error Handling](https://www.youtube.com/watch?v=RDNTP66oY2o)
