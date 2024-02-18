@@ -530,6 +530,91 @@ Lil' bits of reusability
 
 ---
 
+# Query Resolvers
+
+<div class="mt-6 flex items-start gap-4">
+
+<div class="flex-1">
+
+  ```gql
+  # Schema
+  type Query {
+    users: [User!]!
+    user(id: ID!): User
+  }
+  ```
+</div>
+<div class="flex-1">
+
+  ```rust
+  // Backend
+  const resolvers = {
+    Query: {
+
+      users() {
+        return users;
+      },
+
+      user(parent, args) {
+        return users.find((user) => user.id === args.id);
+      },
+
+    },
+  };
+  ```
+</div>
+</div>
+
+---
+
+# Mutation Resolvers
+
+<div class="mt-6 flex items-start gap-4">
+
+<div class="flex-1">
+
+  ```gql
+  # Schema
+  type Mutation {
+    deletePost(id: ID!)
+    newPost(input: PostInput!): Post
+  }
+
+  input PostInput {
+    body: String!
+    image: String
+  }
+  ```
+</div>
+<div class="flex-1">
+
+  ```rust
+  // Backend
+  const resolvers = {
+    Mutation: {
+
+      deletePost(parent, args) {
+        posts.splice(posts.findIndex((post) => post.id == args.id), 1);
+      },
+
+      newPost(parent, args) {
+        const post = {
+          id: posts.length,
+          body: args.input.body,
+          image: args.input.image,
+        };
+        posts.push(post);
+        return post;
+      },
+
+    },
+  };
+  ```
+</div>
+</div>
+
+---
+
 # Further resources
 Where to go next?
  
