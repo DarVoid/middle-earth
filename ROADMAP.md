@@ -10,7 +10,7 @@
     - [ ] dependencies (gateway boots after)
     - [ ] ports
  - [ ] TDD test-app
- - [ ] Write presentation script
+ - [X] Write presentation script
  - [ ] Feature flags for strategy pattern @ shire
  - [ ] Finish up frontend
  - [ ] Subscriptions

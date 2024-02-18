@@ -79,8 +79,8 @@ Let us begin our adventure
   - Queries
   - Mutations
   - Resolvers
-  - Schema Stitching
-  - Federation
+  - Schema Stitching (?)
+  - Federation (?)
   - Subscriptions (?)
 
   </div>
