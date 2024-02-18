@@ -470,6 +470,63 @@ Left to implementation
 ---
 
 # Fragments
+Lil' bits of reusability
+
+<div class="mt-6 flex items-start gap-4">
+
+<div class="flex-1">
+
+  ```gql
+  # Schema
+  type User {
+    name: String!
+    email: String!
+    password: String! # Terrible idea
+    phone: String
+    address: String
+  }
+  ```
+</div>
+<div class="flex-1">
+
+  ```gql
+  # Client
+  fragment LoginFields on User {
+    email
+    password
+  }
+
+  fragment ContactInfo on User {
+    email
+    phone
+    address
+  }
+
+  query {
+    user(id: "42") {
+      name
+      ...ContactInfo
+    }
+  }
+  ```
+</div>
+<div class="flex-1">
+
+  ```json
+  // Response
+  {
+    "data": {
+      "user": {
+        "name": "Frodo Baggins",
+        "email": "frodo@shire.me",
+        "phone": "123456789",
+        "address": "8 Bag-End, Shire"
+      }
+    }
+  }
+  ```
+</div>
+</div>
 
 ---
 
