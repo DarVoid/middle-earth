@@ -33,7 +33,9 @@ test('get posts with body', async () => {
         }
     `;
     const res = await client.query({ query });
-    expect(res)
+    expect(res.data)
+        .toBeDefined();
+    expect(res.data.posts)
         .toBeArrayOfSize(2);
     expect(res.data.posts[0].body)
         .toBeString();

@@ -1,7 +1,12 @@
 export const Query = {
-    post: () => ({
-        title: 'Example post',
-    }),
+    posts: () => ([
+        {
+            body: 'Foo',
+        },
+        {
+            body: 'Bar',
+        },
+    ]),
 };
 
 export const Mutations = {
