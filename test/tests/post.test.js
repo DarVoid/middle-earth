@@ -1,33 +1,42 @@
-import { expect, test } from 'bun:test';
+import { expect, test, beforeAll } from 'bun:test';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
 
-const client = new ApolloClient({
-    uri: 'http://127.0.0.1:5000', // TODO: change to use env variable
-    cache: new InMemoryCache(),
-    defaultOptions: {
-        watchQuery: {
-            fetchPolicy: 'no-cache',
-            errorPolicy: 'all',
+const apiUrl = process.env.API_URL ?? 'http://127.0.0.1:6473/query';
+let client;
+
+beforeAll(() => {
+    client = new ApolloClient({
+        uri: apiUrl,
+        headers: {
+            MockPersistance: true,
         },
-        query: {
-            fetchPolicy: 'no-cache',
-            errorPolicy: 'all',
+        cache: new InMemoryCache(),
+        defaultOptions: {
+            watchQuery: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+            },
+            query: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+            },
         },
-    },
+    });
 });
 
-test('get post with title', async () => {
+test('get posts with body', async () => {
     const query = gql`
         query {
-            post {
-                title
+            posts {
+                body
             }
         }
     `;
     const res = await client.query({ query });
     expect(res)
-        .toBeObject()
-        .toHaveProperty('data.post.title');
-    expect(res.data.post.title)
+        .toBeArrayOfSize(2);
+    expect(res.data.posts[0].body)
+        .toBeString();
+    expect(res.data.posts[1].body)
         .toBeString();
 });
