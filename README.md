@@ -19,9 +19,9 @@ docker-compose up
 
 ```mermaid
 graph TD;
-    M(<b>Mordor</b><br/>Posts Backend) --> G;
-    I(<b>Isengard</b><br/>Auth Backend) --> G;
-    G(((<b>Gateway</b><br/>Federation))) --> S(<b>Shire</b><br/>Frontend);
+    M(Mordor<br/>Posts Backend) --> G;
+    I(Isengard<br/>Auth Backend) --> G;
+    G(((Gateway<br/>Federation))) --> S(Shire<br/>Frontend);
 ```
 
 ## Project Structure
@@ -78,4 +78,5 @@ so that Shire can query it from one place.
 ### 📜 Test
 **A test suite for sanity**
 
-You didn't think we'd let you rawdog your way to Mordor, did you?
+A set of tests that makes requests to the gateway, ensuring stuff works as it's supposed to.
+We hope you like TDD, as this will serve as your guide to success during our quest.
