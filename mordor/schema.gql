@@ -5,3 +5,11 @@ type Post {
 type Query {
     posts: [Post!]!
 }
+
+input PostInput {
+    body: String!
+}
+
+type Mutation {
+    newPost(post: PostInput!): Post!
+}

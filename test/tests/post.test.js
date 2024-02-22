@@ -1,4 +1,4 @@
-import { expect, test, beforeAll } from 'bun:test';
+import { expect, test, beforeAll, beforeEach } from 'bun:test';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
 
 const apiUrl = process.env.API_URL ?? 'http://127.0.0.1:6473/query';
@@ -8,7 +8,7 @@ beforeAll(() => {
     client = new ApolloClient({
         uri: apiUrl,
         headers: {
-            MockPersistance: true,
+            'mock-persistence': 'true',
         },
         cache: new InMemoryCache(),
         defaultOptions: {
@@ -24,15 +24,82 @@ beforeAll(() => {
     });
 });
 
-test('get posts with body', async () => {
-    const query = gql`
-        query {
-            posts {
-                body
+beforeEach(() => {
+    const resetClient = new ApolloClient({
+        uri: apiUrl,
+        headers: {
+            'mock-persistence': 'true',
+            'clear-persistence': 'true',
+        },
+        cache: new InMemoryCache(),
+        defaultOptions: {
+            watchQuery: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+            },
+            query: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+            },
+        },
+    });
+    return resetClient.query({
+        query: gql`
+            query {
+                posts { __typename }
             }
-        }
-    `;
-    const res = await client.query({ query });
+        `,
+    });
+});
+
+test('when there are no posts return empty array', async () => {
+    const res = await client.query({
+        query: gql`
+            query {
+                posts {
+                    body
+                }
+            }
+        `,
+    });
+    expect(res.data)
+        .toBeDefined();
+    expect(res.data.posts)
+        .toBeArrayOfSize(0);
+});
+
+test('posts are returned with body after creating 2 posts', async () => {
+    ['Foo', 'Bar'].forEach(async (body) => {
+        const mutRes = await client.mutate({
+            mutation: gql`
+                mutation($post: PostInput!) {
+                    newPost(post: $post) {
+                        body
+                    }
+                }
+            `,
+            variables: {
+                post: {
+                    body,
+                },
+            },
+        });
+        
+        expect(mutRes.data)
+            .toBeDefined();
+        expect(mutRes.data.newPost.body)
+            .toBe(body);
+    });
+
+    const res = await client.query({
+        query: gql`
+            query {
+                posts {
+                    body
+                }
+            }
+        `,
+    });
     expect(res.data)
         .toBeDefined();
     expect(res.data.posts)

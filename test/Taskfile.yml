@@ -2,6 +2,8 @@
 
 version: '3'
 
+interval: 500ms
+
 tasks:
   default:
     cmds:
@@ -10,3 +12,4 @@ tasks:
   test:
     cmds:
       - bun test
+    silent: true
