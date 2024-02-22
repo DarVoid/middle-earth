@@ -68,6 +68,44 @@ test('when there are no posts return empty array', async () => {
         .toBeArrayOfSize(0);
 });
 
+test('a post can be created', async () => {
+    const mutRes = await client.mutate({
+        mutation: gql`
+            mutation($post: PostInput!) {
+                newPost(post: $post) {
+                    body
+                }
+            }
+        `,
+        variables: {
+            post: {
+                body: 'Foo',
+            },
+        },
+    });
+    
+    expect(mutRes.data)
+        .toBeDefined();
+    expect(mutRes.data.newPost.body)
+        .toBe('Foo');
+    
+    const res = await client.query({
+        query: gql`
+            query {
+                posts {
+                    body
+                }
+            }
+        `,
+    });
+    expect(res.data)
+        .toBeDefined();
+    expect(res.data.posts)
+        .toBeArrayOfSize(1);
+    expect(res.data.posts[0].body)
+        .toBe('Foo');
+});
+
 test('posts are returned with body after creating 2 posts', async () => {
     ['Foo', 'Bar'].forEach(async (body) => {
         const mutRes = await client.mutate({
