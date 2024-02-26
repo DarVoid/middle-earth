@@ -1,9 +1,7 @@
 go 1.21.6
 
 use (
-	./barcode
 	./cli
 	./logger
-	./mongoer
 	./server
 )
