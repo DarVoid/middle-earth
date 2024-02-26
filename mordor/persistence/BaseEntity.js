@@ -6,16 +6,16 @@ export class BaseEntity {
         this._persistence = persistence;
     }
 
-    save() {
+    async save() {
         const keys = Object.keys(this).filter(key => !key.startsWith('_'));
         let obj = {};
         keys.forEach(key => obj[key] = this[key]);
-        return this._persistence.save(this.constructor.name, obj);
+        return await this._persistence.save(this.constructor.name, obj);
     }
 
-    static all(persistence) {
+    static async all(persistence) {
         const instance = new this(persistence);
-        return instance._persistence.all(instance.constructor.name);
+        return await instance._persistence.all(instance.constructor.name);
     }
 
 }

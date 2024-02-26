@@ -2,7 +2,7 @@ import { persistenceStrategy, testingPersistenceStrategy } from "../config/persi
 
 export async function handlePersistenceHeaders({ req, res }) {
     if(req.headers['clear-persistence']?.toLowerCase() == 'true') {
-        testingPersistenceStrategy._reset();
+        await testingPersistenceStrategy._reset();
     }
     return {
         persistence: req.headers['mock-persistence']?.toLowerCase() == 'true' ? testingPersistenceStrategy : persistenceStrategy,
