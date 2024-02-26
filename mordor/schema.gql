@@ -1,15 +1,32 @@
+type User {
+    name: String!
+}
+
 type Post {
     body: String!
 }
 
 type Query {
     posts: [Post!]!
+    users: [User!]!
 }
 
 input PostInput {
     body: String!
 }
 
+input UserInput {
+    name: String!
+}
+
+type ValidationError {
+    field: String!
+    rule: String!
+}
+
+union UserResult = User | ValidationError
+
 type Mutation {
     newPost(post: PostInput!): Post!
+    newUser(user: UserInput!): UserResult!
 }

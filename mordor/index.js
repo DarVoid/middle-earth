@@ -6,15 +6,18 @@ import { promises } from 'fs';
 import { handlePersistenceHeaders } from './persistence/HandlePersistenceHeaders';
 
 import { Query as PostQuery, Mutations as PostMutation } from './resolvers/post';
+import { Query as UserQuery, Mutations as UserMutation } from './resolvers/user';
 
 const typeDefs = gql(await promises.readFile('schema.gql', 'utf8'));
 
 const resolvers = {
     Query: {
         ...PostQuery,
+        ...UserQuery,
     },
     Mutation: {
         ...PostMutation,
+        ...UserMutation,
     },
 };
 
