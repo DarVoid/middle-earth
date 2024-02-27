@@ -1,15 +1,32 @@
+#* QUERIES
+
+type Query {
+    posts: [Post!]!
+    users: [User!]!
+    user(id: ID!): User
+}
+
+#* MUTATIONS
+
+type Mutation {
+    newPost(post: PostInput!): Post!
+    newUser(user: UserInput!): UserResult!
+}
+
+#* TYPES
+
 type User {
+    id: ID!
     name: String!
+    email: String!
+    avatar: String
 }
 
 type Post {
     body: String!
 }
 
-type Query {
-    posts: [Post!]!
-    users: [User!]!
-}
+#* INPUTS
 
 input PostInput {
     body: String!
@@ -17,7 +34,12 @@ input PostInput {
 
 input UserInput {
     name: String!
+    email: String!
+    password: String!
+    avatar: String
 }
+
+#* ERROR HANDLING
 
 type ValidationError {
     field: String!
@@ -25,8 +47,3 @@ type ValidationError {
 }
 
 union UserResult = User | ValidationError
-
-type Mutation {
-    newPost(post: PostInput!): Post!
-    newUser(user: UserInput!): UserResult!
-}

@@ -1,9 +1,9 @@
 import { BaseEntity } from "../persistence/BaseEntity";
 
 export class User extends BaseEntity {
-    name;
+    __typename = 'User';
 
-    static UserResult(user) {
-        return { ...user, __typename: 'User' };
-    }
+    name;
+    email;
+    avatar;
 }

@@ -18,6 +18,10 @@ export class InMemory {
         return this.data[entity];
     }
 
+    async allWhere(key, value, entity) {
+        return (await this.all(entity)).filter(each => each[key] === value);
+    }
+
     async _reset() {
         this.data = {};
     }

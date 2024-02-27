@@ -48,4 +48,8 @@ export class FlatFile {
         return await this._load(entity);
     }
 
+    async allWhere(key, value, entity) {
+        return (await this.all(entity)).filter(each => each[key] === value);
+    }
+
 }
