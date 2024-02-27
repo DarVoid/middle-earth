@@ -26,6 +26,11 @@ type User {
 
 type Post {
     body: String!
+    likes: Likes!   
+}
+
+type Likes{
+    count: Int!
 }
 
 type LoginSuccess {

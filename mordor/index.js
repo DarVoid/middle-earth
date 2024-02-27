@@ -5,7 +5,7 @@ import { gql } from 'graphql-tag';
 import { promises } from 'fs';
 import { handlePersistenceHeaders } from './persistence/HandlePersistenceHeaders';
 
-import { Query as PostQuery, Mutations as PostMutation } from './resolvers/post';
+import { Query as PostQuery, Mutations as PostMutation, Post  } from './resolvers/post';
 import { Query as UserQuery, Mutations as UserMutation } from './resolvers/user';
 import { Query as AuthQuery, Mutations as AuthMutation } from './resolvers/auth';
 
@@ -17,6 +17,7 @@ const resolvers = {
         ...UserQuery,
         ...AuthQuery,
     },
+    Post,
     Mutation: {
         ...PostMutation,
         ...UserMutation,
