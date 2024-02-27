@@ -36,7 +36,7 @@ export class BaseEntity {
 
     static async firstWhere(key, value, persistence) {
         const instance = new this(persistence);
-        return (await instance._persistence.allWhere(key, value, instance.constructor.name)).map(this._hydrateEntity(new this(persistence)))?.[0];
+        return (await instance._persistence.allWhere(key, value, instance.constructor.name)).map(this._hydrateEntity(new this(persistence)))?.[0] ?? null;
     }
 
 }

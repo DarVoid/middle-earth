@@ -6,4 +6,5 @@ export class User extends BaseEntity {
     name;
     email;
     avatar;
+    password;
 }

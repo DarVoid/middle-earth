@@ -11,6 +11,8 @@ type Query {
 type Mutation {
     newPost(post: PostInput!): Post!
     newUser(user: UserInput!): UserResult!
+
+    login(login: LoginInput!): LoginResult!
 }
 
 #* TYPES
@@ -26,6 +28,10 @@ type Post {
     body: String!
 }
 
+type LoginSuccess {
+    token: String!
+}
+
 #* INPUTS
 
 input PostInput {
@@ -39,6 +45,11 @@ input UserInput {
     avatar: String
 }
 
+input LoginInput {
+    email: String!
+    password: String!
+}
+
 #* ERROR HANDLING
 
 type ValidationError {
@@ -46,4 +57,15 @@ type ValidationError {
     rule: String!
 }
 
+type UserNotFoundError {
+    id: ID
+    email: String
+}
+
+type BadCredentialsError {
+    message: String!
+}
+
 union UserResult = User | ValidationError
+
+union LoginResult = LoginSuccess | BadCredentialsError | UserNotFoundError | ValidationError
