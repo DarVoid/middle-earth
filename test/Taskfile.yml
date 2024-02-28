@@ -9,7 +9,11 @@ tasks:
     cmds:
       - task -l
     silent: true
-  test:
+  run:  
+    desc: runs tests
     cmds:
       - bun test
-    silent: true
+  setup:
+    desc: installs deps
+    cmds:
+      - bun install

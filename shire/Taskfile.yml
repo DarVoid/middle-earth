@@ -8,9 +8,10 @@ tasks:
       - task -l
     silent: true
 
-  run:
+  run:  
+    desc: runs shire app 
     cmds:
-      - bun run dev
+      - bun dev
     silent: true
 
   setup:

@@ -8,36 +8,50 @@ services:
     container_name: isengard
     environment:
       - GO_ENV=production
-      - ISENGARD_PORT=8080
+      - ISENGARD_PORT=8000
     volumes:
-      - ./go-app:/app
-    command: go run main.go
-    working_dir: /app
+      - ./isengard
+    command: go run ./server/server.go
+    working_dir: ./
     ports:
-      - "8080:8080"
+      - "8000:8000"
 
-  node-service-1:
+  mordor:
     image: node:latest
     container_name: node-container-1
     environment:
       - NODE_ENV=production
-      - WRAPPER_PORT=3000
+      - MORDOR_PORT=4000
     volumes:
-      - ./node-app-1:/app
-    command: npm start
-    working_dir: /app
+      - ./mordor
+    command: bun start
+    working_dir: ./
     ports:
-      - "3000:3000"
+      - "4000:4000"
+
+  gateway:
+    image: node:latest
+    container_name: node-container-1
+    environment:
+      - NODE_ENV=production
+      - MORDOR_PORT=4000
+      - ISENGARD_PORT=8000
+    volumes:
+      - ./gateway
+    command: bun start
+    working_dir: ./
+    ports:
+      - "6473:6473"
 
   testing-api-node:
     image: node:latest
     container_name: testing-api
     environment:
       - NODE_ENV=production
-      - NODE_PORT=3001
+      - NODE_PORT=6473
     volumes:
-      - ./node-app-2:/app
+      - ./test
     command: npm start
-    working_dir: /app
+    working_dir: ./
     ports:
       - "3001:3001"
