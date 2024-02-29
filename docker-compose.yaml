@@ -4,28 +4,28 @@ networks:
   aether:
     driver: bridge
 services:
-  isengard:
-    build:
-      dockerfile: Dockerfile
-      context: ./isengard
-    container_name: isengard
-    environment:
-      - GO_ENV=production
-      - ISENGARD_PORT=8000
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      interval: 1s
-      timeout: 10s
-      retries: 50
-    volumes:
-      - ./isengard:/usr/app
-    command: >
-      sh -c "task setup; task run"
-    working_dir: /usr/app
-    ports:
-      - "8000:8000"
-    networks:
-      - aether
+  # isengard:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./isengard
+  #   container_name: isengard
+  #   environment:
+  #     - GO_ENV=production
+  #     - ISENGARD_PORT=8000
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+  #     interval: 1s
+  #     timeout: 10s
+  #     retries: 50
+  #   volumes:
+  #     - ./isengard:/usr/app
+  #   command: >
+  #     sh -c "task setup; task run"
+  #   working_dir: /usr/app
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - aether
 
   mordor:
     build:
@@ -35,6 +35,11 @@ services:
     environment:
       - NODE_ENV=development
       - MORDOR_PORT=4000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/"]
+      interval: 1s
+      timeout: 10s
+      retries: 50
     volumes:
       - ./mordor:/usr/app
     command:  >
@@ -47,9 +52,9 @@ services:
   gateway:
     depends_on:
       mordor:
-        condition: service_started
-      isengard:
-        condition: service_healthy       
+        condition: service_healthy
+      # isengard:
+      #   condition: service_healthy       
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6473/"]
       interval: 1s

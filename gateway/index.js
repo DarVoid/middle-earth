@@ -23,7 +23,7 @@ const server = new ApolloServer({
         supergraphSdl: new IntrospectAndCompose({
             subgraphs: [
                 { name: 'mordor', url: `http://${mordor_HOST}:${mordor_PORT}/query` },
-                { name: 'isengard', url: `http://${isengard_HOST}:${isengard_PORT}/query` },
+                // { name: 'isengard', url: `http://${isengard_HOST}:${isengard_PORT}/query` },
                 // ...additional subgraphs...
             ],
         }),
