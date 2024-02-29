@@ -72,7 +72,8 @@ services:
       - ISENGARD_HOST=isengard
     volumes:
       - ./gateway:/usr/app
-    command: bun start
+    command: >
+      sh -c "task setup; task run"
     working_dir: /usr/app
     ports:
       - "6473:6473"
