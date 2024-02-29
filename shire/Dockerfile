@@ -4,4 +4,4 @@ RUN apt update && apt install curl -y
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 WORKDIR /usr/app
 EXPOSE 3000
-ENTRYPOINT [ "task" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
