@@ -16,27 +16,12 @@ const typeDefs = gql(await promises.readFile('schema.gql', 'utf8'));
 
 const resolvers = {
     Query: {
-        ...PostQuery,
-        ...CommentQuery,
         ...UserQuery,
         ...AuthQuery,
-        ...LikeQuery,
     },
     Mutation: {
-        ...PostMutation,
-        ...CommentMutation,
         ...UserMutation,
         ...AuthMutation,
-        ...LikeMutation,
-    },
-    Post:{
-        ...PostComments,
-        ...Poster,
-        ...PostLikes,
-    },
-    Comment: {
-        ...Commenter,
-        ...CommentLikes,
     },
 };
 

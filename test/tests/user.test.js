@@ -233,13 +233,9 @@ test('a user can be fetched by ID', async () => {
         .toBeDefined();
     
     const res = await client.query({
+        // TODO: insert query to receive object according to expected data
         query: gql`
-            query($id: ID!) {
-                user(id: $id) {
-                    id
-                    name
-                }
-            }
+            
         `,
         variables: {
             id: mutRes.data.newUser.id,
@@ -255,12 +251,9 @@ test('a user can be fetched by ID', async () => {
 
 test('fetching a user with an non-existing ID returns null', async () => {
     const res = await client.query({
+        // TODO: insert query to receive object according to expected data
         query: gql`
-            query($id: ID!) {
-                user(id: $id) {
-                    id
-                }
-            }
+            
         `,
         variables: {
             id: "this_id_does_not_exist",
