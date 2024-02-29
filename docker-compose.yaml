@@ -19,7 +19,7 @@ services:
       retries: 50
     volumes:
       - ./isengard:/usr/app
-    command: task run
+  
     working_dir: /usr/app
     ports:
       - "8000:8000"
@@ -34,9 +34,13 @@ services:
     environment:
       - NODE_ENV=development
       - MORDOR_PORT=4000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/"]
+      interval: 1s
+      timeout: 10s
+      retries: 50
     volumes:
       - ./mordor:/usr/app
-    command: bun start
     working_dir: /usr/app
     ports:
       - "4000:4000"
@@ -65,7 +69,6 @@ services:
       - ISENGARD_HOST=isengard
     volumes:
       - ./gateway:/usr/app
-    command: bun start
     working_dir: /usr/app
     ports:
       - "6473:6473"
@@ -76,7 +79,6 @@ services:
       dockerfile: Dockerfile
       context: ./shire
     container_name: shire
-    command: task run
     environment:
       - NODE_ENV=development
       - API_URL=http://localhost:6473/query
