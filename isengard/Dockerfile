@@ -6,9 +6,11 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 WORKDIR /usr/app
 
 EXPOSE 8080
-ENTRYPOINT [ "./entrypoint.sh" ]
-
-
+COPY ./entrypoint.sh ./entrypoint.sh
+RUN ["chmod", "+x", "./entrypoint.sh"]
+RUN chmod +x ./entrypoint.sh
+CMD ["sh", "entrypoint.sh"]
+# CMD ["ls"]
 # FROM alpine:latest AS go-runner
 
 # WORKDIR /app

@@ -4,27 +4,27 @@ networks:
   aether:
     driver: bridge
 services:
-  # isengard:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./isengard
-  #   container_name: isengard
-  #   environment:
-  #     - GO_ENV=production
-  #     - ISENGARD_PORT=8000
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-  #     interval: 1s
-  #     timeout: 10s
-  #     retries: 50
-  #   volumes:
-  #     - ./isengard:/usr/app
-  #
-  #   working_dir: /usr/app
-  #   ports:
-  #     - "8000:8000"
-  #   networks:
-  #     - aether
+  isengard:
+    build:
+      dockerfile: Dockerfile
+      context: ./isengard
+    container_name: isengard
+    environment:
+      - GO_ENV=production
+      - ISENGARD_PORT=8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 1s
+      timeout: 10s
+      retries: 50
+    volumes:
+      - ./isengard:/usr/app
+  
+    working_dir: /usr/app
+    ports:
+      - "8000:8000"
+    networks:
+      - aether
 
   mordor:
     build:
@@ -50,8 +50,8 @@ services:
     depends_on:
       mordor:
         condition: service_healthy
-      # isengard:
-      #   condition: service_healthy       
+      isengard:
+        condition: service_healthy       
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6473/"]
       interval: 1s
