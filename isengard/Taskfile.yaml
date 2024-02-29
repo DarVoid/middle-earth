@@ -11,7 +11,11 @@ tasks:
       - task -l
     silent: true
 
-  run:
-    desc: runs playground and server at the same time
+  setup:
+    desc: install deps
     cmds:
-      - task -p gographql:start
+      - go mod tidy
+  run:
+    desc: runs server
+    cmds:
+      - go run server.go

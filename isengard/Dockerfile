@@ -6,7 +6,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 WORKDIR /usr/app
 
 EXPOSE 8080
-CMD [ "go", "mod", "tidy", "&&", "go", "run", "server.go"  ]
+ENTRYPOINT [ "task" ]
 
 
 # FROM alpine:latest AS go-runner
