@@ -19,7 +19,8 @@ services:
       retries: 50
     volumes:
       - ./isengard:/usr/app
-    command: task run
+    command: >
+      sh -c "task setup; task run"
     working_dir: /usr/app
     ports:
       - "8000:8000"
@@ -36,7 +37,8 @@ services:
       - MORDOR_PORT=4000
     volumes:
       - ./mordor:/usr/app
-    command: bun start
+    command:  >
+      sh -c "task setup; task run"
     working_dir: /usr/app
     ports:
       - "4000:4000"
@@ -76,7 +78,8 @@ services:
       dockerfile: Dockerfile
       context: ./shire
     container_name: shire
-    command: task run
+    command:  >
+      sh -c "task setup; task run"
     environment:
       - NODE_ENV=development
       - API_URL=http://localhost:6473/query
