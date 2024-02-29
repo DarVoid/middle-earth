@@ -1,0 +1,23 @@
+# Roadmap
+
+ - [x] Readmes for each sub-app @ duque
+ - [x] Update main Readme @ duque
+ - [x] Better arch diagram 
+ - [x] Dockerfiles @ toby & duque
+     - [x] Bun
+     - [x] Taskfile
+ - [x] docker-compose @ toby & duque
+    - [x] volumes
+    - [x] dependencies (gateway boots after)
+    - [x] ports
+ - [x] TDD test-app
+ - [x] Test likes @ duque
+ - [x] Write presentation script
+ - [ ] render red divs on empty query @ shire @ toby
+ - [ ] Finish up frontend @ toby
+ - [ ] Review slide template @ toby
+ - [x] Review slides
+ - [ ] Clean up git repo
+ - [ ] Write tests for comments @ duque
+ - [ ] Comments logic (optional)
+ - [ ] Friends logic (optional)

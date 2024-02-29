@@ -1,0 +1,17 @@
+version: '3'
+
+includes:
+  gographql:
+    dir: ./server
+    taskfile: ./server
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
+
+  run:
+    desc: runs playground and server at the same time
+    cmds:
+      - task -p gographql:start

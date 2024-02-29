@@ -1,32 +1,18 @@
 {
-  "name": "bff-api",
-  "version": "1.0.0",
-  "description": "just a node API that introspects and composes a supergraph from registered subgraphs",
-  "main": "index.ts",
+  "name": "gateway",
+  "module": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "test",
-    "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "bun index.js"
   },
-  "keywords": [
-    "graphQL",
-    "feration",
-    "nodejs"
-  ],
-  "author": "DarVoid",
-  "license": "MIT",
   "devDependencies": {
-    "@types/graphql": "^14.5.0",
-    "@types/node": "^20.5.1",
-    "nodemon": "^3.0.1",
-    "rimraf": "^5.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@apollo/gateway": "^2.4.12",
-    "@apollo/server": "^4.9.1",
-    "graphql": "^16.8.0"
-  },
-  "type": "module"
+    "@apollo/gateway": "^2.7.1",
+    "@apollo/server": "^4.10.0"
+  }
 }
