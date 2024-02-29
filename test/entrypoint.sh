@@ -1,4 +1,4 @@
 #!/bin/bash
 
 task setup
-bun start
+task run

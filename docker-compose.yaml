@@ -49,7 +49,7 @@ services:
   gateway:
     depends_on:
       mordor:
-        condition: service_healthy
+        condition: service_started
       isengard:
         condition: service_healthy       
     healthcheck:

@@ -5,7 +5,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
 WORKDIR /usr/app
 
-EXPOSE 8080
+EXPOSE 8000
 COPY ./entrypoint.sh ./entrypoint.sh
 RUN ["chmod", "+x", "./entrypoint.sh"]
 RUN chmod +x ./entrypoint.sh

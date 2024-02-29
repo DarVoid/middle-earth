@@ -37,6 +37,7 @@ tasks:
   test-docker:
     desc: runs tests using docker compose
     cmds:
+      - docker-compose exec gandalf_the_green task setup 
       - docker-compose exec gandalf_the_green task run 
   test-sh:
     desc: enters THA MACHINE
